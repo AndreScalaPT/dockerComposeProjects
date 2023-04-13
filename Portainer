@@ -1,0 +1,22 @@
+version: '3.0'
+
+networks:
+  dns_net:
+    driver: bridge
+    ipam:
+        config:
+        - subnet: 172.20.0.0/16
+services:
+
+#INSTALL PORTAINER
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce
+    restart: always
+    ports:
+      - "9000:9000/tcp" # You can change the first part 9000/ for another port, so you don't get conflits with other services
+    environment:
+      - TZ=Europe/Amsterdam # Update your location
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /opt/portainer:/data # /opt/ will be the folder where I keep all my container compose files
